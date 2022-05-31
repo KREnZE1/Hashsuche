@@ -40,5 +40,7 @@ public class Hashsuche {
         }
     }
 
+    public static void suche() {
 
+    }
 }
