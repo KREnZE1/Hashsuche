@@ -2,7 +2,7 @@
 public class Hashsuche {
     int modulo;
     static double[][] geburtsdaten;
-    static int[] hash;
+    static int[] hashTabelle;
     static Hashsuche test;
 
     public static void main(String[] args) {
@@ -13,7 +13,7 @@ public class Hashsuche {
     public static void setup(){
         test = new Hashsuche(11);
         geburtsdaten = new double[20][2];
-        hash = new int[test.getModulo()];
+        hashTabelle = new int[test.getModulo()];
     }
 
         public Hashsuche(int pModulo) {
@@ -22,8 +22,19 @@ public class Hashsuche {
         public int getModulo() {return this.modulo;}
 
     public static void hashEinfuegen(int pSchluessel) {
-        hash[berechneHash(pSchluessel)] = pSchluessel;
-        //TODO: Weitergabe ist inaktiv
+        //hashTabelle[berechneHash(pSchluessel)] = pSchluessel;
+        int hash = berechneHash(pSchluessel);
+        rekEinfuegen(hash, pSchluessel, 0);
+    }
+    public static void rekEinfuegen(int index, int pSchluessel, int kollisionen) {
+        if (kollisionen < hashTabelle.length) return;
+        if (index > hashTabelle.length) index -= kollisionen;
+        if (hashTabelle[index] == 0) {
+            hashTabelle[index] = pSchluessel;
+            return;
+        }
+        else rekEinfuegen(index+1, pSchluessel, kollisionen+1);
+        //TODO: Extensive testing necessary
     }
     public static int berechneHash(int pSchluessel) {
         return pSchluessel%test.getModulo();
@@ -40,7 +51,4 @@ public class Hashsuche {
         }
     }
 
-    public static void suche() {
-
-    }
 }
