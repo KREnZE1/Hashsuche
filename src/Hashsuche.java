@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class Hashsuche {
     int modulo;
@@ -8,6 +9,7 @@ public class Hashsuche {
     public static void main(String[] args) {
         setup();
         geburtswertEinfuegen(11031990, 9.8);
+        geburtswertEinfuegen(11031990, 9.9);
     }
 
     public static void setup(){
@@ -26,11 +28,14 @@ public class Hashsuche {
         int hash = berechneHash(pSchluessel);
         rekEinfuegen(hash, pSchluessel, 0);
     }
+
     public static void rekEinfuegen(int index, int pSchluessel, int kollisionen) {
         if (kollisionen < hashTabelle.length) return;
         if (index > hashTabelle.length) index -= kollisionen;
         if (hashTabelle[index] == 0) {
             hashTabelle[index] = pSchluessel;
+            System.out.println("Success");
+            //noinspection UnnecessaryReturnStatement
             return;
         }
         else rekEinfuegen(index+1, pSchluessel, kollisionen+1);
@@ -51,4 +56,11 @@ public class Hashsuche {
         }
     }
 
+    public static void ausgabeGeburtswerte() {
+        for (double[] values : geburtsdaten) Arrays.toString(values);
+    }
+
+    public static void ausgabeHashTabelle() {
+        Arrays.toString(hashTabelle);
+    }
 }
