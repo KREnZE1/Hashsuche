@@ -1,6 +1,6 @@
 public class Main {
     static double[][] werte;
-    static int[][] gehasht;
+    static int[] gehasht;
     static int modulo;
 
     public static void main(String[] args) {
@@ -8,14 +8,18 @@ public class Main {
     }
 
     public static int berechneHash(int pSchluessel) {
-        //TODO: Methode schreiben
-        return 0;
+        //Hashwert aus einer Zahl berechnen
+        return pSchluessel%modulo;
     }
 
-    public static int fuegeEin(int pSchluessel, double wert) {
-        //TODO: Methode schreiben
+    public static void fuegeEin(int pSchluessel, double wert) {
         //In Geburtswert Tabelle einfuegen
-        return 0;
+        for (int i=0; i<werte.length; i++){
+            if (werte[i][0] == 0) {
+                werte[i][0] = pSchluessel;
+                werte[i][1] = wert;
+            }
+        }
     }
 
     public static int suchePositionVon(int pSchluessel) {
@@ -26,6 +30,7 @@ public class Main {
     public static int fuegeEin(int pSchluessel) {
         //TODO: Methode schreiben
         //In Gehashte Tabelle einfuegen
+
         return 0;
     }
 
@@ -34,13 +39,15 @@ public class Main {
         return new double[3][];
     }
 
-    public static int[][] gibGehasht(){
-        //TODO: Methode schreiben
-        return new int[3][];
+    public static int[] gibGehasht(){
+        return gehasht;
     }
 
     public static double gibWertVonGeburtsdatum(int pGeburtsdatum) {
-        //TODO: Methode schreiben
-        return 0;
+        for (double[] doubles : werte) {
+            if (doubles[0] == pGeburtsdatum) return doubles[1];
+        }
+        System.out.println("ERROR");
+        return -1;
     }
 }
