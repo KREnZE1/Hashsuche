@@ -8,8 +8,7 @@ public class Hashsuche {
 
     public static void main(String[] args) {
         setup();
-        geburtswertEinfuegen(11031990, 9.8);
-        geburtswertEinfuegen(11031990, 9.9);
+        for(int i=0; i<geburtsdaten.length+1; i++) geburtswertEinfuegen(11031990, 9);
         ausgabeGeburtswerte();
         ausgabeHashTabelle();
     }
@@ -32,7 +31,7 @@ public class Hashsuche {
 
     public static int rekEinfuegen(int index, int pSchluessel, int kollisionen) {
         if (kollisionen > hashTabelle.length) return -1;
-        if (index > hashTabelle.length) index -= hashTabelle.length;
+        if (index == hashTabelle.length) index -= hashTabelle.length;
         if (hashTabelle[index] == 0) {
             hashTabelle[index] = pSchluessel;
             return index;
@@ -42,7 +41,9 @@ public class Hashsuche {
     public static int berechneHash(int pSchluessel) {return pSchluessel%test.getModulo();}
 
     public static void geburtswertEinfuegen(int pGeburtswert, double pValue) {
-        geburtsdaten[hashEinfuegen(pGeburtswert)] = pValue;
+        int pos = hashEinfuegen(pGeburtswert);
+        if (pos == -1) return;
+        geburtsdaten[pos] = pValue;
     }
 
     public static void ausgabeGeburtswerte() {System.out.print(Arrays.toString(geburtsdaten)+"\n");
@@ -52,6 +53,7 @@ public class Hashsuche {
 
     public static int suchePositionVon(int pGeburtswert) {
         //Eingabe ein Geburtswert, Ausgabe der index in der hashtabelle (was der index in der normalen tabelle ist)
+        int hash = berechneHash(pGeburtswert);
 
         return -1;
         //TODO: Suche implementieren
