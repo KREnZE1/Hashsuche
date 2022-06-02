@@ -1,9 +1,9 @@
 import java.util.Arrays;
 
 public class Hashsuche {
-    int modulo;
-    static double[] geburtsdaten;
-    static int[] hashTabelle;
+    int modulo; //Teiler
+    static double[] geburtsdaten; //speichert die hauptwerte
+    static int[] hashTabelle; //speichert die werte am passenden Hash-Slot
     static Hashsuche test;
 
     public static void main(String[] args) {
@@ -19,9 +19,7 @@ public class Hashsuche {
         hashTabelle = new int[test.getModulo()];
     }
 
-        public Hashsuche(int pModulo) {
-            this.modulo = pModulo;
-        }
+        public Hashsuche(int pModulo) {this.modulo = pModulo;}
         public int getModulo() {return this.modulo;}
 
     public static int hashEinfuegen(int pSchluessel) {
@@ -30,29 +28,29 @@ public class Hashsuche {
     }
 
     public static int rekEinfuegen(int index, int pSchluessel, int kollisionen) {
-        if (kollisionen > hashTabelle.length) return -1;
-        if (index == hashTabelle.length) index -= hashTabelle.length;
-        if (hashTabelle[index] == 0) {
-            hashTabelle[index] = pSchluessel;
-            return index;
+        if (kollisionen > hashTabelle.length) return -1; //wenn die Tabelle einmal komplett durchgegangen wurde wird abgebrochen
+        if (index == hashTabelle.length) index -= hashTabelle.length; //wenn der Index das Array verlassen würde wird er ans linke Ende gesetzt
+        if (hashTabelle[index] == 0) { //wenn der Slot leer ist
+            hashTabelle[index] = pSchluessel; //wird der Wert in der Hashtabelle gespeichert
+            return index; //und der Index zurückgegeben, damit in der Wertetabelle an der gleichen Stelle gespeichert wird
         }
-        else return rekEinfuegen(index+1, pSchluessel, kollisionen+1);
+        else return rekEinfuegen(index+1, pSchluessel, kollisionen+1); //sonst wird der nächste Aufruf der Methode mit einer Kollision mehr und einem erhöhten Index gemacht
     }
     public static int berechneHash(int pSchluessel) {return pSchluessel%test.getModulo();}
 
     public static void geburtswertEinfuegen(int pGeburtswert, double pValue) {
-        int pos = hashEinfuegen(pGeburtswert);
-        if (pos == -1) return;
+        int pos = hashEinfuegen(pGeburtswert); //speichert den Index des Wertes ab, um in der Wertetabelle an der gleichen Stelle zu speichern
+        if (pos == -1) return; //wenn das einfügen nicht erfolgreich war wird nichts in die Wertetabelle eingefügt
         geburtsdaten[pos] = pValue;
     }
 
-    public static void ausgabeGeburtswerte() {System.out.print(Arrays.toString(geburtsdaten)+"\n");
+    public static void ausgabeGeburtswerte() {System.out.print(Arrays.toString(geburtsdaten)+"\n"); //gibt das gesamte Array auf der Konsole aus
     }
 
-    public static void ausgabeHashTabelle() {System.out.print(Arrays.toString(hashTabelle)+"\n");}
+    public static void ausgabeHashTabelle() {System.out.print(Arrays.toString(hashTabelle)+"\n");} //gibt das gesamte Array auf der Konsole aus
 
     public static int suchePositionVon(int pGeburtswert) {
-        //Eingabe ein Geburtswert, Ausgabe der index in der hashtabelle (was der index in der normalen tabelle ist)
+        //Findet von einem Geburtswert den Index in der Hastabelle, um den Wert in der Wertetabelle zuordnen zu können
         int hash = berechneHash(pGeburtswert);
 
         return -1;
