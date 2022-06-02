@@ -10,6 +10,8 @@ public class Hashsuche {
         setup();
         geburtswertEinfuegen(11031990, 9.8);
         geburtswertEinfuegen(11031990, 9.9);
+        ausgabeGeburtswerte();
+        ausgabeHashTabelle();
     }
 
     public static void setup(){
@@ -30,16 +32,15 @@ public class Hashsuche {
     }
 
     public static void rekEinfuegen(int index, int pSchluessel, int kollisionen) {
-        if (kollisionen < hashTabelle.length) return;
+        if (kollisionen > hashTabelle.length) return;
         if (index > hashTabelle.length) index -= kollisionen;
         if (hashTabelle[index] == 0) {
             hashTabelle[index] = pSchluessel;
-            System.out.println("Success");
+
             //noinspection UnnecessaryReturnStatement
             return;
         }
         else rekEinfuegen(index+1, pSchluessel, kollisionen+1);
-        //TODO: Extensive testing necessary
     }
     public static int berechneHash(int pSchluessel) {
         return pSchluessel%test.getModulo();
@@ -57,10 +58,10 @@ public class Hashsuche {
     }
 
     public static void ausgabeGeburtswerte() {
-        for (double[] values : geburtsdaten) Arrays.toString(values);
+        for (double[] values : geburtsdaten) System.out.print(Arrays.toString(values)+"\n");
     }
 
     public static void ausgabeHashTabelle() {
-        Arrays.toString(hashTabelle);
+        System.out.print(Arrays.toString(hashTabelle)+"\n");
     }
 }
