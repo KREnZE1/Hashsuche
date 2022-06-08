@@ -35,8 +35,7 @@ public class Main {
     }
 
     public static double[][] gibWerte() {
-        //TODO: Methode schreiben
-        return new double[3][];
+        return werte;
     }
 
     public static int[] gibGehasht(){
