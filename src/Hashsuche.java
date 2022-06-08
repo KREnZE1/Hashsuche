@@ -5,6 +5,7 @@ public class Hashsuche {
     static double[] geburtsdaten; //speichert die Hauptwerte
     static int[] hashTabelle; //speichert die werte am passenden Hash-Slot
     static Hashsuche test;
+    static int hash;
 
     public static void main(String[] args) {
         setup();
@@ -51,9 +52,11 @@ public class Hashsuche {
 
     public static int suchePositionVon(int pGeburtswert) {
         //Findet von einem Geburtswert den Index in der Hashtabelle, um den Wert in der Wertetabelle zuordnen zu können
-        int hash = berechneHash(pGeburtswert);
+        hash = berechneHash(pGeburtswert);
+
 
         return -1;
         //TODO: Suche implementieren
     }
+
 }
