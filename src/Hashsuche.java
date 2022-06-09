@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 
 public class Hashsuche {
@@ -6,21 +10,22 @@ public class Hashsuche {
     static int[] hashTabelle; //speichert die werte am passenden Hash-Slot
     static Hashsuche test;
     static int hash;
+    static BufferedReader br;
+    static int gb;
+    static double val;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         setup();
-        for(int i=0; i<geburtsdaten.length; i++) geburtswertEinfuegen(11031990, 9);
-        geburtswertEinfuegen(44444444, 7);
+        getInput();
         ausgabeGeburtswerte();
         ausgabeHashTabelle();
-        System.out.println(suchePositionVon(11031990));
-        System.out.println(suchePositionVon(44444444));
     }
 
     public static void setup(){
         test = new Hashsuche(11);
         geburtsdaten = new double[test.getModulo()];
         hashTabelle = new int[test.getModulo()];
+        br = new BufferedReader(new InputStreamReader(System.in));
     }
 
         public Hashsuche(int pModulo) {this.modulo = pModulo;}
@@ -69,5 +74,16 @@ public class Hashsuche {
         else return rekEinfuegen(index+1, pValue, kollisionen+1); //sonst wird der nächste Aufruf der Methode mit einer Kollision mehr und einem erhöhten Index gemacht
     }
 
-    //TODO: User Input durch die Konsole annehmen
+    public static void getInput() throws IOException {
+        System.out.print("Geburtsdatum: ");
+        gb = Integer.parseInt(br.readLine());
+        System.out.print("Wert: ");
+        val = Double.parseDouble(br.readLine());
+        geburtswertEinfuegen(gb, val);
+    }
+
+    public static void loop() {
+        System.out.println("Ausgabe: A");
+        System.out.println("Eingabe E");
+    }
 }
