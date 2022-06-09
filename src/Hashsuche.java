@@ -9,9 +9,12 @@ public class Hashsuche {
 
     public static void main(String[] args) {
         setup();
-        for(int i=0; i<geburtsdaten.length+1; i++) geburtswertEinfuegen(11031990, 9);
+        for(int i=0; i<geburtsdaten.length; i++) geburtswertEinfuegen(11031990, 9);
+        geburtswertEinfuegen(44444444, 7);
         ausgabeGeburtswerte();
         ausgabeHashTabelle();
+        System.out.println(suchePositionVon(11031990));
+        System.out.println(suchePositionVon(44444444));
     }
 
     public static void setup(){
@@ -53,10 +56,18 @@ public class Hashsuche {
     public static int suchePositionVon(int pGeburtswert) {
         //Findet von einem Geburtswert den Index in der Hashtabelle, um den Wert in der Wertetabelle zuordnen zu können
         hash = berechneHash(pGeburtswert);
-
-
-        return -1;
-        //TODO: Suche implementieren
+        return rekSuche(hash, pGeburtswert, 0)+hash;
+        //TODO: Suche improven, funktioniert noch nicht
     }
 
+    public static int rekSuche(int index, int pValue, int kollisionen) {
+        if (kollisionen > hashTabelle.length) return -1; //wenn die Tabelle einmal komplett durchgegangen wurde, wird abgebrochen
+        if (index == hashTabelle.length) index -= hashTabelle.length; //wenn der Index das Array verlassen würde, wird er ans linke Ende gesetzt
+        if (hashTabelle[index] == pValue) { //wenn der Slot mit dem richtigen Wert gefüllt ist
+            return index; //wird der Index zurückgegeben
+        }
+        else return rekEinfuegen(index+1, pValue, kollisionen+1); //sonst wird der nächste Aufruf der Methode mit einer Kollision mehr und einem erhöhten Index gemacht
+    }
+
+    //TODO: User Input durch die Konsole annehmen
 }
